@@ -164,7 +164,16 @@ void my_matrix::add_node(int v, int r, int c) {
     if (p == nullptr) {
         p = new_node;
         r_vec[r] = p;
-    } else {// row pointer has 3 values. first one is the row number, second one points to the next row, 3rd points to the column node.
+    }
+
+    else {// row pointer has 3 values. first one is the row number, second one points to the next row, 3rd points to the column node.
+        // if this node is supposed to be the head
+        if(p->c_next == nullptr && p->c_position > c){
+            // put node before
+            r_vec[r] = new_node;
+            new_node->c_next = p;
+            return;
+        }
         while (p != nullptr) {
             node *col = p->r_next;
             if (col == nullptr) {
